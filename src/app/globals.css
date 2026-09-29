@@ -1,26 +1,97 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-bg: #07080c;
+  --color-panel: #0d0f15;
+  --color-panel-2: #131620;
+  --color-panel-3: #1a1e2b;
+  --color-line: #1e2230;
+  --color-line-strong: #2b3143;
+  --color-fg: #e8eaf0;
+  --color-muted: #8f97ab;
+  --color-faint: #5d6477;
+  --color-accent: #8b6cff;
+  --color-accent-strong: #7651ff;
+  --color-accent-soft: #8b6cff1f;
+  --color-cyan: #33d6f0;
+  --color-ok: #3ddc97;
+  --color-warn: #f5b93d;
+  --color-bad: #ff6b81;
+  --color-info: #6aa8ff;
+
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-slide-up: slide-up 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-pulse-dot: pulse-dot 1.4s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    from { background-position: -400px 0; }
+    to { background-position: 400px 0; }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
   }
 }
 
+:root {
+  color-scheme: dark;
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Subtle ambient gradient behind the console. */
+.app-backdrop {
+  background:
+    radial-gradient(1200px 600px at 85% -10%, #8b6cff14, transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, #33d6f00d, transparent 60%),
+    var(--color-bg);
+}
+
+.panel {
+  background: linear-gradient(180deg, #11131b 0%, #0d0f15 100%);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #141722 0px, #1c2030 120px, #141722 240px);
+  background-size: 800px 100%;
+  animation: var(--animate-shimmer);
+  border-radius: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #262b3a; border-radius: 8px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+::selection { background: #8b6cff55; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
 }
